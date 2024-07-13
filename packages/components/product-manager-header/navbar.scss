@@ -1,0 +1,30 @@
+.product-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+
+    .product-title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 34px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;  
+        
+    }
+
+    .logo-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;       
+
+        .header-logo {
+            height: 50px;
+            width: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+    }
+}

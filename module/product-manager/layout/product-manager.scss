@@ -1,0 +1,38 @@
+// src/modules/product/ProductManagerLayout.scss
+
+$color-primary: #FAFAFA; // Ana renk
+$color-secondary: #6c757d; // İkincil renk
+$color-success: #28a745; // Başarılı durum
+$color-danger: #dc3545; // Hata durumu
+$color-warning: #ffc107; // Uyarı durumu
+$color-info: #17a2b8; // Bilgilendirme
+$color-light: #f8f9fa; // Açık renk
+$color-dark: #343a40; // Koyu renk
+
+// Diğer renkler için eklemeler yapabilirsiniz
+; // Ana renk
+$color-secondary: #6c757d; // İkincil renk
+$color-success: #28a745; // Başarılı durum
+$color-danger: #dc3545; // Hata durumu
+$color-warning: #ffc107; // Uyarı durumu
+$color-info: #17a2b8; // Bilgilendirme
+$color-light: #f8f9fa; // Açık renk
+$color-dark: #343a40; // Koyu renk
+
+// Diğer renkler için eklemeler yapabilirsiniz
+
+
+.product-manager-layout {
+    display: grid;
+    grid-template-columns: 1fr 5fr; // 3:9 oranı
+    gap: 20px; // Kolonlar arasında boşluk
+  
+    .sidebar {
+      background-color: $color-primary;   
+    }  
+    .main-content {
+      padding: 5px;
+      background-color: #ffffff; // Ana içerik alanı için arka plan rengi
+    }
+  }
+  
