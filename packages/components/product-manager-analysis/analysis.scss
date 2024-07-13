@@ -1,0 +1,45 @@
+$primary-bg: #F9F9F9;
+
+.analysis-content {
+    max-width: 1400px;
+    margin: 0 auto; // Yatay olarak ortalamak için
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); // Dört sütunlu grid
+    gap: 20px; // Kutu arası boşluk
+  
+    .analysis-content-product {
+      background-color: $primary-bg; // Kutu arka plan rengi
+      border-radius: 10px;
+      padding: 20px;     
+      .analysis-content-product-footer{
+        color: #0D0D0D;
+        font-size: 25px;
+    }
+      .analysis-content-product-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;     
+
+       
+  
+        .product-header-net-profit {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          color: #616161;
+  
+          .product-header-net-profit-icon {
+            border-radius: 50%;
+            background-color: #12a5bc;
+            padding: 5px;
+          }
+        }
+      }
+  
+      .analysis-content-product-footer {
+        margin-top: 20px;
+        // Footer içeriği buraya eklenebilir
+      }
+    }
+  }
+  

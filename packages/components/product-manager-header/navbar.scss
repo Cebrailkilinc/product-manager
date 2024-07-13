@@ -3,7 +3,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-
+ 
     .product-title {
         display: flex;
         align-items: center;
@@ -11,20 +11,35 @@
         font-size: 34px;
         font-weight: bold;
         color: #333;
-        margin-bottom: 20px;  
-        
+        margin-bottom: 20px;          
     }
 
     .logo-container {
         display: flex;
         justify-content: center;
-        align-items: center;       
+        align-items: center; 
+        gap: 20px;     
+        background-color: #f9f9f9; 
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        padding-right: 20px;
+        border-radius: 50px;
 
         .header-logo {
             height: 50px;
             width: 50px;
             object-fit: cover;
             border-radius: 50%;
+        }
+        .header-user{
+            .header-user-name{
+                font-size: 13px;
+                font-weight: 800;
+            }
+            .header-user-username{
+                font-size: 10px;
+            }
         }
     }
 }
