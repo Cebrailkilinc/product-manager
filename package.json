@@ -9,15 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
     "lucide-react": "^0.408.0",
+    "nanoid": "^5.0.7",
     "next": "14.2.5",
     "prop-types": "^15.8.1",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.52.1",
-    "sass": "^1.77.8"
+    "sass": "^1.77.8",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@types/classnames": "^2.3.1",

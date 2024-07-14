@@ -5,27 +5,50 @@ import { Input } from '@/core/components/input';
 import { Button } from '@/core/components/button';
 import { ImagePlus, Trash2 } from 'lucide-react';
 import { useForm, SubmitHandler } from "react-hook-form";
+import axios from 'axios';
+import { nanoid } from 'nanoid'
 
 type Inputs = {
-  productName: string;
+  name: string;
   sellerName: string;
   description: string;
   count: number;
   price: number;
+  category:String,
   image: string;
 };
 
 const AddProduct = () => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-
+  
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data: any) => {
-    console.log("Submitting:", data);
+  const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
+    console.log(data)
+    const sendData = {
+      id: nanoid(),
+      name: data.name,
+      sellerName: data.sellerName,
+      description: data.description,
+      count: data.count,
+      price: data.price,
+      category: "imagePreview",
+      photo:  imagePreview
+    }
+    try {
+      const response = await axios.post('http://localhost:8080/product/add', sendData);
+      console.log('Product added successfully:', response.data);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error('Axios error adding product:', error.response?.data?.message || error.message);
+      } else {
+        console.error('Unexpected error:', (error as Error).message);
+      }
+    }
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +62,8 @@ const AddProduct = () => {
     }
   };
 
+
+
   return (
     <div className='add-product-form'>
       <h1 className='add-product-form-head'>Add Product</h1>
@@ -48,10 +73,10 @@ const AddProduct = () => {
             placeholder='Product Name'
             size='large'
             variant='primary'
-            {...register("productName", { required: true })}
+            {...register("name", { required: true })}
           />
           <div className='form-required-message-content'>
-            {errors.productName && <span className='form-required-message'>This field is required</span>}
+            {errors.name && <span className='form-required-message'>This field is required</span>}
           </div>
         </div>
         <div className='add-product-form-content-item'>
@@ -102,7 +127,7 @@ const AddProduct = () => {
           </div>
 
         </div>
-        
+
         <div className='add-product-form-content-item' >
           <Input
             min={0}
@@ -111,6 +136,18 @@ const AddProduct = () => {
             size='large'
             variant='primary'
             {...register("count", { required: true, min: 0 })}
+          />
+          <div className='form-required-message-content'>
+            {errors.count && <span className='form-required-message'>Count must be at least 0</span>}
+          </div>
+
+        </div>
+        <div className='add-product-form-content-item' >
+          <Input           
+            placeholder='Category'
+            size='large'
+            variant='primary'
+            {...register("category", { required: true, min: 0 })}
           />
           <div className='form-required-message-content'>
             {errors.count && <span className='form-required-message'>Count must be at least 0</span>}
