@@ -1,8 +1,7 @@
 // src/styles.scss
 $primary-color: #3498db;
 
-.container {
-  padding: 20px;
+.container { 
   background-color: $primary-color;
   border-radius: 8px;
   color: white;
@@ -10,7 +9,6 @@ $primary-color: #3498db;
 }
 
 .button {
-  padding: 10px 20px;
   background-color: darken($primary-color, 10%);
   border: none;
   border-radius: 4px;
@@ -28,9 +26,23 @@ $primary-color: #3498db;
   font-size: 12px;
 }
 
+.button-medium {
+  padding: 5px 10px;
+  font-size: 12px;
+  width: 50%;
+}
+
 .button-large {
+  padding: 5px 10px;
+  font-size: 12px;
+  width: 75%;
+}
+
+
+.button-xlarge {
   padding: 15px 30px;
   font-size: 20px;
+  width: 100%;
 }
 
 .button-primary {

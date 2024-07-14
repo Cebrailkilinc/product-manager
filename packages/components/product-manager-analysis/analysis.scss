@@ -1,11 +1,12 @@
 $primary-bg: #F9F9F9;
 
 .analysis-content {
-    max-width: 1400px;
+    max-width: 1440px;
     margin: 0 auto; // Yatay olarak ortalamak için
     display: grid;
     grid-template-columns: repeat(4, 1fr); // Dört sütunlu grid
     gap: 20px; // Kutu arası boşluk
+    overflow-y: auto;
   
     .analysis-content-product {
       background-color: $primary-bg; // Kutu arka plan rengi
@@ -20,8 +21,6 @@ $primary-bg: #F9F9F9;
         align-items: center;
         gap: 10px;     
 
-       
-  
         .product-header-net-profit {
           display: flex;
           align-items: center;

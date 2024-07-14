@@ -1,4 +1,5 @@
-$primary-bg-color: #232323;
+$primary-bg-color: rgb(35, 35, 35, 0.8);
+$secondary-bg-color:#E6E6E6;
 .sidebar{
     display: flex;
     flex-direction: column;   
@@ -30,10 +31,10 @@ $primary-bg-color: #232323;
             transition: background-color 0.3s, transform 0.2s;
 
             &:hover {
-                background-color: $primary-bg-color; // Daha açık bir arka plan
+                background-color: $secondary-bg-color; // Daha açık bir arka plan
                 transform: scale(1.01); // Küçük bir büyütme efekti
                 cursor: pointer;
-                color: white;
+                color: rgb(92, 92, 92);
             }
             &.selected {
                 background-color: $primary-bg-color;

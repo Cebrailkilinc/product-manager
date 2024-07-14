@@ -5,7 +5,9 @@ export const buttonStyles = cva('button', {
   variants: {
     size: {
       small: 'button-small',
+      medium: "button-medium",
       large: 'button-large',
+      xlarge: "button-xlarge"
     },
     variant: {
       primary: 'button-primary',
