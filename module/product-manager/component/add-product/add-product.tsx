@@ -24,7 +24,7 @@ const AddProduct = () => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<Inputs> = (data: any) => {
     console.log("Submitting:", data);
   };
 
