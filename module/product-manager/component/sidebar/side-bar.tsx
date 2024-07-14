@@ -11,7 +11,7 @@ interface SideBarProps {
 }
 
 const SideBar: React.FC<SideBarProps> = ({ onSelectMenuItem }) => {
-  const [selectedItem, setSelectedItem] = useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState<string | null>("Add Product");
 
   const handleSelectMenuItem = (constant: string, name: string,) => {
     onSelectMenuItem(constant);
