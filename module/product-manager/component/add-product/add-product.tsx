@@ -50,7 +50,9 @@ const AddProduct = () => {
             variant='primary'
             {...register("productName", { required: true })}
           />
-          {errors.productName && <span className='form-required-message'>This field is required</span>}
+          <div className='form-required-message-content'>
+            {errors.productName && <span className='form-required-message'>This field is required</span>}
+          </div>
         </div>
         <div className='add-product-form-content-item'>
           <Input
@@ -59,9 +61,10 @@ const AddProduct = () => {
             variant='primary'
             {...register("sellerName", { required: true })}
           />
-          {errors.sellerName && <span className='form-required-message'>This field is required</span>}
+          <div className='form-required-message-content'>
+            {errors.sellerName && <span className='form-required-message'>This field is required</span>}
+          </div>
         </div>
-
         <div className='content-photo-textarea'>
           <div className='add-product-form-content-item'>
             <textarea
@@ -69,7 +72,9 @@ const AddProduct = () => {
               className='add-product-text-area'
               {...register("description", { required: true })}
             />
-            {errors.description && <span className='form-required-message'>This field is required</span>}
+            <div className='form-required-message-content'>
+              {errors.description && <span className='form-required-message'>This field is required</span>}
+            </div>
           </div>
           <div className='content-photo'>
             <input
@@ -77,7 +82,7 @@ const AddProduct = () => {
               accept="image/*"
               style={{ display: 'none' }}
               id="image-upload"
-              {...register("image",{required:true})}
+              {...register("image", { required: true })}
               onChange={handleImageUpload}
             />
             {imagePreview ? null :
@@ -93,11 +98,11 @@ const AddProduct = () => {
                 <Trash2 onClick={() => setImagePreview(null)} className='image-preview-delete' />
               </div>
             )}
-           
+
           </div>
-          
+
         </div>
-        {errors.count && <span className='form-required-message'>Count must be at least 0</span>}
+        
         <div className='add-product-form-content-item' >
           <Input
             min={0}
@@ -107,7 +112,10 @@ const AddProduct = () => {
             variant='primary'
             {...register("count", { required: true, min: 0 })}
           />
-          {errors.count && <span className='form-required-message'>Count must be at least 0</span>}
+          <div className='form-required-message-content'>
+            {errors.count && <span className='form-required-message'>Count must be at least 0</span>}
+          </div>
+
         </div>
         <div className='add-product-form-content-item'>
           <Input
@@ -118,7 +126,10 @@ const AddProduct = () => {
             variant='primary'
             {...register("price", { required: true, min: 0 },)}
           />
-          {errors.price && <span className='form-required-message'>Price must be at least 0</span>}
+          <div className='form-required-message-content'>
+            {errors.price && <span className='form-required-message'>Price must be at least 0</span>}
+          </div>
+
         </div>
         <Button type="submit" size='large' variant='primary'>Add product</Button>
       </form>

@@ -17,22 +17,22 @@ $hover-color: #adadad;
     align-items: start;
     justify-content: center;    
     flex-direction: column;
-    gap: 20px;
+ 
 
     .add-product-form-content-item {
       width: 100%;
       display: flex;
       flex-direction: column;
+
+      .form-required-message-content{
+        height: 30px;
+      }
       .form-required-message{
         font-size: 10px;
         color: red;
-        padding: 5px;       
+        padding-bottom: 5px;      
       }
-
-      
     }
-
-
     .content-photo-textarea {
       width: 75%;
       display: grid;
@@ -79,7 +79,7 @@ $hover-color: #adadad;
             position: absolute;
             top: 0;
             right: 0;
-            color: darken($color: red, $amount: 10);
+            color: darken(red, 10%);;
             border-radius: 50%;
             padding: 5px;
 
