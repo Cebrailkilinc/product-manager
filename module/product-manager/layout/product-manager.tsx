@@ -5,6 +5,7 @@ import SideBar from '@/module/product-manager/component/sidebar/side-bar';
 import AddProduct from '@/module/product-manager/component/add-product/add-product';
 import ProductManagerNavbar from '@/packages/components/product-manager-header/navbar';
 import Analysis from '@/packages/components/product-manager-analysis/analysis';
+import ProductList from '../component/product-list/product-list';
 
 const ProductManagerLayout = () => {
     
@@ -14,8 +15,8 @@ const ProductManagerLayout = () => {
         switch (selectedMenu) {
           case 'add-product':
             return <AddProduct/>;
-          case 'product-analysis':
-            return <div>Product Analysis Content</div>;
+          case 'product-list':
+            return <ProductList/>;
           case 'settings':
             return <div>Settings Content</div>;
           default:

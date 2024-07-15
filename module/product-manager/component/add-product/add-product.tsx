@@ -28,8 +28,8 @@ const AddProduct = () => {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
-    console.log(data)
-    const sendData = {
+    
+    const sendDataOfAddProduct = {
       id: nanoid(),
       name: data.name,
       sellerName: data.sellerName,
@@ -39,8 +39,9 @@ const AddProduct = () => {
       category: "imagePreview",
       photo:  imagePreview
     }
+
     try {
-      const response = await axios.post('http://localhost:8080/product/add', sendData);
+      const response = await axios.post('http://localhost:8080/product/add', sendDataOfAddProduct);
       console.log('Product added successfully:', response.data);
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -49,6 +50,7 @@ const AddProduct = () => {
         console.error('Unexpected error:', (error as Error).message);
       }
     }
+
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {

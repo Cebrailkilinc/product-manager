@@ -20,7 +20,7 @@ const SideBar: React.FC<SideBarProps> = ({ onSelectMenuItem }) => {
 
   const menuItems = [
     { name: 'Add Product', icon: <Package2 color='#11ABC2' />, constant: "add-product" },
-    { name: 'Product Analiz', icon: <LayoutDashboard color='#11ABC2' />, constant: "add-products" },
+    { name: 'Product Analiz', icon: <LayoutDashboard color='#11ABC2' />, constant: "product-list" },
     { name: 'Settings', icon: <Settings color='#11ABC2' />, constant: "add-products" },
     { name: 'Add Product-2', icon: <Package2 color='#11ABC2' />, constant: "add-productss" },
     { name: 'Product Analiz-2', icon: <LayoutDashboard color='#11ABC2' />, constant: "add-productsss" },
