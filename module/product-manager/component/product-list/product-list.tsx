@@ -6,14 +6,16 @@ import { ChevronDown, SquarePen, Trash2 } from 'lucide-react';
 import { Button } from '@/core/components/button';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-
+import Image from 'next/image';
 type Product = {
+    _id:string,
     id: string;
     name: string;
     description: string;
     price: number;
     category: string;
-    stock: number;
+    count: number;
+    photo: string
 };
 
 const ProductList = () => {
@@ -30,8 +32,8 @@ const ProductList = () => {
     if (isLoading) return <div>Loading...</div>;
     if (isError) return <div>Error: {error.message}</div>;
 
-    console.log(data && data[0].category)
-        
+
+
     return (
         <div className='product-list-content'>
             <div className='product-list-content-top-bar'>
@@ -64,51 +66,24 @@ const ProductList = () => {
                             <th>Updated</th>
                         </tr>
                     </thead>
-                    {data && data.map((item, i) => {
-                        return (
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        {item.stock}
-                                    </td>
-                                    <td>
-                                        {item.description}
-                                    </td>
-                                    <td>
-                                        {item.price}
-                                    </td>
-                                    <td>
-                                        
-                                    </td>
-                                    <td>
-                                        {item.name}
-                                    </td>
-                                    <td className='table-edit'>
-                                        <Trash2 size={20} className='table-deleted' />
-                                        <SquarePen size={20} className='table-updated' />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        )
-                    })}
-                    {/* <tbody>
+                    {<tbody>
                         {data && data.map((product) => (
                             <tr className='table-body' key={product.id}>
                                 <td className='table-name'>
-                                    
+                                   
                                     <div>{product.name}</div>
                                 </td>
                                 <td>{product.description}</td>
                                 <td>{product.price}</td>
                                 <td>{product.category}</td>
-                                <td>{product.stock}</td>
+                                <td>{product.count}</td>
                                 <td className='table-edit'>
-                                    <Trash2 size={20} className='table-deleted' />
+                                    <Trash2 onClick={()=>console.log(product._id)} size={20} className='table-deleted' />
                                     <SquarePen size={20} className='table-updated' />
                                 </td>
                             </tr>
                         ))}
-                    </tbody> */}
+                    </tbody>}
                 </table>
             </div>
         </div>

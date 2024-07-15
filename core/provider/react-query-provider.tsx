@@ -6,7 +6,14 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 
 export function ReactQueryProvider({ children }: React.PropsWithChildren) {
-  const [client] = React.useState(new QueryClient());
+  const [client] = React.useState(new QueryClient({
+    defaultOptions:{
+        queries:{
+            refetchOnMount:false,
+            refetchOnWindowFocus:false
+        }
+    }
+  }));
 
   return (
     <QueryClientProvider client={client}>

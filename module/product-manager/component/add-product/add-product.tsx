@@ -28,7 +28,7 @@ const AddProduct = () => {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
-    
+    console.log(data)
     const sendDataOfAddProduct = {
       id: nanoid(),
       name: data.name,
@@ -36,7 +36,7 @@ const AddProduct = () => {
       description: data.description,
       count: data.count,
       price: data.price,
-      category: "imagePreview",
+      category: data.category,
       photo:  imagePreview
     }
 
