@@ -1,0 +1,74 @@
+/* src/styles/modal.scss */
+.modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding-top: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 10px;
+    max-width: 90%;
+    position: fixed; /* Absolute yerine fixed kullanıyoruz */
+    top: 50%; /* Yüksekliğin ortasına yerleştir */
+    left: 50%; /* Genişliğin ortasına yerleştir */
+    transform: translate(-50%, -50%); /* Ortalamak için translate kullan */
+    z-index: 400;
+    font-size: 10px;
+  }
+  
+  .modal-small {
+    width: 300px;
+  }
+  
+  .modal-medium {
+    width: 500px;
+  }
+  
+  .modal-large {
+    width: 700px;
+  }
+  
+  .modal-xlarge {
+    width: 900px;
+  }
+  
+  .modal-info {
+   
+  }
+  
+  .modal-warning {
+   
+  }
+  
+  .modal-success {
+    
+  }
+  
+  .modal-error {
+    
+  }
+  
+  .modal-close-button {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 30px;
+
+  }
+  
+  .modal-accept-button {
+    margin-left: auto;
+  }
+  

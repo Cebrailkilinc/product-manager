@@ -142,6 +142,13 @@
 
         .table-body {
             // Eğer table-body için özel stiller varsa buraya ekleyebilirsiniz
+            .editable{
+                border: 1px solid red;
+            }
+            .product-list-content .editable {
+                direction: ltr; /* Yazı yönünü sol-to-sağ yapar */
+                text-align: left; /* Yazıyı sola hizalar */
+              }
         }
     }
 
