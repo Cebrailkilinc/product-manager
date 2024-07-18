@@ -1,25 +1,27 @@
 import React, { useState } from 'react';
+
+//STYLES
 import "./product-list.scss";
+
+//COMPONENTS
 import { Input } from '@/core/components/input';
-import { ChevronDown, CircleCheckBig, SquarePen, Trash2 } from 'lucide-react';
 import { Modal } from '@/core/components/modal/modal';
-import classNames from 'classnames';
-import axios from 'axios';
+
+//CLASS
+import { ProductService } from "../../service/productService"
+
+//LIBRARY
+import { ChevronDown, CircleCheckBig, SquarePen, Trash2 } from 'lucide-react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { GetServerSideProps } from 'next';
+import axios from 'axios';
+import classNames from 'classnames';
 
-type Product = {
-    _id: string;
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    category: string;
-    count: number;
-    photo: string;
-};
+//TYPES
+import { Product } from "../../type/prduct-manager.type"
 
-const ProductList = ({initialProducts}:any) => {
+
+const ProductList = () => {
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
     const [editableProductId, setEditableProductId] = useState<string | null>(null);
@@ -28,24 +30,12 @@ const ProductList = ({initialProducts}:any) => {
     const [searchTerm, setSearchTerm] = useState('');
 
     const queryClient = useQueryClient();
-    console.log(initialProducts)
-    const fetchProducts = async (): Promise<Product[]> => {
-        const response = await axios.get( process.env.NEXT_PUBLIC_API_URL+'/product/all');
-        return response.data;
-    };
+    const productService = new ProductService
 
     const { data, error, isError, isLoading } = useQuery<Product[]>({
         queryKey: ['product'],
-        queryFn: fetchProducts
+        queryFn: productService.fetchProducts
     });
-
-    const updateProductApi = async (updatedProduct: Partial<Product>) => {
-        await axios.put(`http://localhost:8080/product/${updatedProduct._id}`, updatedProduct);
-    };
-
-    const deleteProductApi = async (productId: string) => {
-        await axios.delete(`http://localhost:8080/product/${productId}`);
-    };
 
     const handleDeleteProduct = (productId: string) => {
         setSelectedProductId(productId);
@@ -57,11 +47,9 @@ const ProductList = ({initialProducts}:any) => {
         setSelectedProductId(null);
     };
 
- console.log(process.env.NEXT_PUBLIC_API_URL)
-
     const acceptModal = async () => {
         if (selectedProductId) {
-            await deleteProductApi(selectedProductId);
+            await productService.deleteProductApi(selectedProductId);
             await queryClient.invalidateQueries(
                 {
                     queryKey: ['product'],
@@ -96,7 +84,7 @@ const ProductList = ({initialProducts}:any) => {
 
     const handleSaveEdit = async () => {
         if (editableProductId) {
-            await updateProductApi({ ...editedProduct, _id: editableProductId });
+            await productService.updateProductApi({ ...editedProduct, _id: editableProductId });
             await queryClient.invalidateQueries(
                 {
                     queryKey: ['product'],
@@ -113,6 +101,7 @@ const ProductList = ({initialProducts}:any) => {
     };
 
     const sortedData = React.useMemo(() => {
+
         if (!data) return [];
 
         let filteredData = data.filter(product =>
@@ -240,7 +229,7 @@ const ProductList = ({initialProducts}:any) => {
                                         />
                                     )}
                                 </td>
-                                
+
                             </tr>
                         ))}
                     </tbody>

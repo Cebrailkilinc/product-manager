@@ -1,6 +1,6 @@
 import React from 'react'
 import "./analysis.scss"
-import AnalysisCard from '@/module/product-manager/component/analysis/analysis-card';
+import AnalysisCard from '@/packages/components/product-manager/analysis-card/analysis-card';
 
 // Analiz verisi arayüzü
 interface AnalysisData {

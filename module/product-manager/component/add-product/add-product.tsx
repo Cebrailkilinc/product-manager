@@ -1,34 +1,38 @@
 "use client"
 import React, { useState } from 'react';
 import './add-product.scss';
+
+//COMPONENT
 import { Input } from '@/core/components/input';
 import { Button } from '@/core/components/button';
+
+//LIBRARY
 import { ImagePlus, Trash2 } from 'lucide-react';
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from 'axios';
 import { nanoid } from 'nanoid'
 
-type Inputs = {
-  name: string;
-  sellerName: string;
-  description: string;
-  count: number;
-  price: number;
-  category:String,
-  image: string;
-};
+//CLASS
+import {ProductService} from "../../service/productService"
+
+//TYpES
+import { Inputs } from "../../type/prduct-manager.type"
+
 
 const AddProduct = () => {
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
   
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+  const productService = new ProductService;
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
-    console.log(data)
+  const onSubmit: SubmitHandler<Inputs> = async (data: any) => {  
+
     const sendDataOfAddProduct = {
       id: nanoid(),
       name: data.name,
@@ -37,21 +41,10 @@ const AddProduct = () => {
       count: data.count,
       price: data.price,
       category: data.category,
-      photo:  imagePreview
+      photo: imagePreview
     }
-
-    try {
-      const response = await axios.post('http://localhost:8080/product/add', sendDataOfAddProduct);
-      console.log('Product added successfully:', response.data);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error('Axios error adding product:', error.response?.data?.message || error.message);
-      } else {
-        console.error('Unexpected error:', (error as Error).message);
-      }
-    }
-
-  };
+    productService.addProductApi(sendDataOfAddProduct)
+  };  
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -63,8 +56,6 @@ const AddProduct = () => {
       reader.readAsDataURL(file);
     }
   };
-
-
 
   return (
     <div className='add-product-form'>
@@ -145,7 +136,7 @@ const AddProduct = () => {
 
         </div>
         <div className='add-product-form-content-item' >
-          <Input           
+          <Input
             placeholder='Category'
             size='large'
             variant='primary'

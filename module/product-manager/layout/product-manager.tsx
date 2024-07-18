@@ -1,10 +1,10 @@
 "use client"
 import React, { useState } from 'react'
 import "./product-manager.scss"
-import SideBar from '@/module/product-manager/component/sidebar/side-bar';
+import SideBar from '@/packages/components/product-manager/sidebar/side-bar';
 import AddProduct from '@/module/product-manager/component/add-product/add-product';
-import ProductManagerNavbar from '@/packages/components/product-manager-header/navbar';
-import Analysis from '@/packages/components/product-manager-analysis/analysis';
+import ProductManagerNavbar from '@/packages/components/product-manager/product-manager-header/navbar';
+import Analysis from '@/packages/components/product-manager/product-manager-analysis/analysis';
 import ProductList from '../component/product-list/product-list';
 
 const ProductManagerLayout = () => {
