@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import Image from 'next/image';
 //STYLES
 import "./product-list.scss";
 
@@ -25,7 +25,6 @@ import { Product } from "../../type/prduct-manager.type"
 
 const ProductList = () => {
 
-    
     const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
     const [editableProductId, setEditableProductId] = useState<string | null>(null);
     const [editedProduct, setEditedProduct] = useState<Partial<Product>>({});
@@ -34,11 +33,12 @@ const ProductList = () => {
 
     const queryClient = useQueryClient();
     const productService = new ProductService
-    const {data:datas,  setIsModalOpen, isModalOpen,isSpinner,setIsSpinner} = useGlobalContext()
- 
+    const { data: datas, setIsModalOpen, isModalOpen, isSpinner, setIsSpinner } = useGlobalContext()
+
     const { data, error, isError, isLoading } = useQuery<Product[]>({
         queryKey: ['product'],
-        queryFn: productService.fetchProducts
+        queryFn: productService.fetchProducts,
+
     });
 
     const handleDeleteProduct = (productId: string) => {
@@ -55,7 +55,7 @@ const ProductList = () => {
         if (selectedProductId) {
             setIsSpinner(true)
             await productService.deleteProductApi(selectedProductId)
-           
+
             await queryClient.invalidateQueries(
                 {
                     queryKey: ['product'],
@@ -64,7 +64,7 @@ const ProductList = () => {
             )
             setSelectedProductId(null);
         }
-        setIsSpinner(false)    
+        setIsSpinner(false)
         setIsModalOpen(false);
     };
 
@@ -87,15 +87,15 @@ const ProductList = () => {
             selection?.removeAllRanges();
             selection?.addRange(range);
         }, 0);
-    };   
+    };
 
-    const handleSaveEdit = async () => {       
+    const handleSaveEdit = async () => {
         if (editableProductId) {
             setIsSpinner(true)
             await productService.updateProductApi({ ...editedProduct, _id: editableProductId })
-            .then(res =>(
-                setIsSpinner(false)
-            ));
+                .then(res => (
+                    setIsSpinner(false)
+                ));
             await queryClient.invalidateQueries(
                 {
                     queryKey: ['product'],
@@ -105,7 +105,7 @@ const ProductList = () => {
             setEditableProductId(null);
             setEditedProduct({});
         }
-       
+
     };
 
     const handleSort = (field: keyof Product) => {
@@ -136,7 +136,7 @@ const ProductList = () => {
     }, [data, sortField, searchTerm]);
 
     if (isLoading) return <Loading message='yükleniyor' />;
-    if (isError) return <Loading  message={error.message} />;
+    if (isError) return <Loading message={error.message} />;
 
     return (
         <div className='product-list-content'>
@@ -146,8 +146,8 @@ const ProductList = () => {
                     <p>Are you sure you want to delete this product?</p>
                 </Modal>
             )}
-            {isLoading  && <Loading message='lütfen bekleyin' />}          
-            {isSpinner && <Loading message='lütfen bekleyin' />}  
+            {isLoading && <Loading message='lütfen bekleyin' />}
+            {isSpinner && <Loading message='lütfen bekleyin' />}
             <div className='product-list-content-top-bar'>
                 <div className='top-bar-left-child'>
                     <div className='top-bar-left-child-drop'>
@@ -169,7 +169,7 @@ const ProductList = () => {
                     />
                 </div>
             </div>
-            <div className='product-list-content'>
+            <div className='product-list-content-table'>
                 <table className='product-table'>
                     <thead>
                         <tr>
@@ -185,11 +185,14 @@ const ProductList = () => {
                         {sortedData && sortedData.map((product) => (
                             <tr className='table-body' key={product.id}>
                                 <td className={classNames({ editable: editableProductId === product._id })}>
-                                    <div
-                                        contentEditable={editableProductId === product._id}
-                                        onInput={(e) => handleInput(e, 'name')}
-                                    >
-                                        {editableProductId === product._id ? editedProduct.name : product.name}
+                                    <div className='table-row-img-name' >
+                                        <Image width={20} height={20} alt='' src={product.photo} />
+                                        <div
+                                            contentEditable={editableProductId === product._id}
+                                            onInput={(e) => handleInput(e, 'name')}
+                                        >
+                                            {editableProductId === product._id ? editedProduct.name : product.name}
+                                        </div>
                                     </div>
                                 </td>
                                 <td className={classNames({ editable: editableProductId === product._id })}>

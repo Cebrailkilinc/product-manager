@@ -9,31 +9,55 @@ $hover-color: #adadad;
     font-size: 25px;
     padding-bottom: 50px;
     padding-top: 50px;
-    width: 300px;   
+    width: 300px;
+
+    
+    @media screen and (max-width: 1080px) {
+       text-align: center;
+    }
 
   }
 
   .add-product-form-content {
     display: flex;
     align-items: start;
-    justify-content: center;    
+    justify-content: center;
     flex-direction: column;
- 
+
+    @media screen and (max-width: 1080px) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
 
     .add-product-form-content-item {
       width: 100%;
       display: flex;
       flex-direction: column;
+      align-items: start;
 
-      .form-required-message-content{
+      @media screen and (max-width: 1080px) {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+
+
+      .form-required-message-content {
         height: 25px;
       }
-      .form-required-message{
+
+      .form-required-message {
         font-size: 10px;
         color: red;
-        padding-bottom: 5px;      
+        padding-bottom: 5px;
       }
     }
+
     .content-photo-textarea {
       width: 75%;
       display: grid;
@@ -80,7 +104,8 @@ $hover-color: #adadad;
             position: absolute;
             top: 0;
             right: 0;
-            color: darken(red, 10%);;
+            color: darken(red, 10%);
+            ;
             border-radius: 50%;
             padding: 5px;
 

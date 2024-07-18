@@ -7,16 +7,33 @@ $color-success: #28a745; // Başarılı durum
 
 
 .product-manager-layout {
-    display: grid;
-    grid-template-columns: 1fr 5fr; // 3:9 oranı
-    gap: 20px; // Kolonlar arasında boşluk
-  
-    .sidebar {
-      background-color: $color-primary;   
-    }  
-    .main-content {
-      padding: 5px;
-      background-color: #ffffff; // Ana içerik alanı için arka plan rengi
-    }
+  display: grid;
+  grid-template-columns: 1fr 5fr; // 3:9 oranı
+  gap: 20px; // Kolonlar arasında boşluk
+
+  .sidebar {
+    background-color: $color-primary;
+  }
+
+  .topbar{
+    display: none;
   }
   
+  .main-content {
+    padding: 5px;
+    background-color: #ffffff; // Ana içerik alanı için arka plan rengi
+  }
+
+  @media (max-width: 1080px) {
+    .sidebar {
+      display: none;
+
+    }
+    .topbar{
+      display: block;
+    }
+    .main-content {
+      grid-column: 1 / -1; // Ana içerik alanını tüm genişlik boyunca uzat
+    }
+  }
+}

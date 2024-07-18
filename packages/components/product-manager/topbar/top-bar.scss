@@ -1,10 +1,12 @@
 $primary-bg-color: rgb(35, 35, 35, 0.8);
 $secondary-bg-color:#E6E6E6;
-.sidebar{
+.topbar{
     display: flex;
     flex-direction: column;   
     padding: 20px;
-    height: 100vh;
+    padding-right: 50px;
+    padding-left: 50px;
+  
     .header{
         display: flex;
         align-items: center;
@@ -12,31 +14,29 @@ $secondary-bg-color:#E6E6E6;
         padding-top: 10px;
         padding-bottom: 50px;
     }
-    .sidebar-menu{
-        display: flex;
-        flex-direction: column;
+    .topbar-menu{
+        display: flex;   
+        align-items: center;
+        justify-content: center;     
         gap: 10px;
-        list-style: none;
-
-        @media screen and (max-width: 1080px) {
-            display: flex;            
-            gap: 10px;
-            list-style: none;
-          }
+        list-style: none;  
       
         
-        .sidebar-item{
+        .topbar-item{
             display: flex;
             align-items: center;
             gap: 10px;            
             padding-left: 10px;
             padding-right: 10px;
-            padding-top: 10px;
-            padding-bottom: 10px;
+            padding-top: 6px;
+            padding-bottom: 6px;
             border-radius: 10px;
             color: #737373;
-            font-size: 12px;
+            font-size: 8px;
             transition: background-color 0.3s, transform 0.2s;
+            @media (min-width:800px) {
+                font-size: 18px;
+            }
 
             &:hover {
                 background-color: $secondary-bg-color; // Daha açık bir arka plan
