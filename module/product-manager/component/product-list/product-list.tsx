@@ -6,6 +6,7 @@ import { Modal } from '@/core/components/modal/modal';
 import classNames from 'classnames';
 import axios from 'axios';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { GetServerSideProps } from 'next';
 
 type Product = {
     _id: string;
@@ -18,7 +19,7 @@ type Product = {
     photo: string;
 };
 
-const ProductList = () => {
+const ProductList = ({initialProducts}:any) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
     const [editableProductId, setEditableProductId] = useState<string | null>(null);
@@ -27,9 +28,9 @@ const ProductList = () => {
     const [searchTerm, setSearchTerm] = useState('');
 
     const queryClient = useQueryClient();
-
+    console.log(initialProducts)
     const fetchProducts = async (): Promise<Product[]> => {
-        const response = await axios.get('http://localhost:8080/product/all');
+        const response = await axios.get( process.env.NEXT_PUBLIC_API_URL+'/product/all');
         return response.data;
     };
 
@@ -56,6 +57,8 @@ const ProductList = () => {
         setSelectedProductId(null);
     };
 
+ console.log(process.env.NEXT_PUBLIC_API_URL)
+
     const acceptModal = async () => {
         if (selectedProductId) {
             await deleteProductApi(selectedProductId);
@@ -64,7 +67,7 @@ const ProductList = () => {
                     queryKey: ['product'],
                     refetchType: 'active',
                 },
-            ), { refetchType: 'active' };
+            )
             setSelectedProductId(null);
         }
         setIsModalOpen(false);
@@ -99,7 +102,7 @@ const ProductList = () => {
                     queryKey: ['product'],
                     refetchType: 'active',
                 },
-            ), { refetchType: 'active' };
+            );
             setEditableProductId(null);
             setEditedProduct({});
         }
@@ -111,7 +114,7 @@ const ProductList = () => {
 
     const sortedData = React.useMemo(() => {
         if (!data) return [];
-        
+
         let filteredData = data.filter(product =>
             product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -237,6 +240,7 @@ const ProductList = () => {
                                         />
                                     )}
                                 </td>
+                                
                             </tr>
                         ))}
                     </tbody>
@@ -246,4 +250,10 @@ const ProductList = () => {
     );
 };
 
+
+
+
+
 export default ProductList;
+
+
