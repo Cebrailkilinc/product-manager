@@ -5,25 +5,27 @@ import './add-product.scss';
 //COMPONENT
 import { Input } from '@/core/components/input';
 import { Button } from '@/core/components/button';
-
+import { Loading } from '@/core/components/loading';
 //LIBRARY
 import { ImagePlus, Trash2 } from 'lucide-react';
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from 'axios';
 import { nanoid } from 'nanoid'
-
+import { useGlobalContext } from '../../context/store';
 //CLASS
-import {ProductService} from "../../service/productService"
+import { ProductService } from "../../service/productService"
 
 //TYpES
 import { Inputs } from "../../type/prduct-manager.type"
 
 
 const AddProduct = () => {
-  
+
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const productService = new ProductService;
+
+  const { isSpinner, setIsSpinner } = useGlobalContext()
 
   const {
     register,
@@ -31,8 +33,8 @@ const AddProduct = () => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = async (data: any) => {  
-
+  const onSubmit: SubmitHandler<Inputs> = async (data: any) => {
+    setIsSpinner(true)
     const sendDataOfAddProduct = {
       id: nanoid(),
       name: data.name,
@@ -43,8 +45,9 @@ const AddProduct = () => {
       category: data.category,
       photo: imagePreview
     }
-    productService.addProductApi(sendDataOfAddProduct)
-  };  
+    
+    productService.addProductApi(sendDataOfAddProduct).then(res => setIsSpinner(false))
+  };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -59,6 +62,7 @@ const AddProduct = () => {
 
   return (
     <div className='add-product-form'>
+      {isSpinner && <Loading message='lütfen bekleyin' />}
       <h1 className='add-product-form-head'>Add Product</h1>
       <form onSubmit={handleSubmit(onSubmit)} className='add-product-form-content'>
         <div className='add-product-form-content-item'>

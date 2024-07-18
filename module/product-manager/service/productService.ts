@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { Inputs, Product } from '../type/prduct-manager.type';
-
+import { useGlobalContext } from '../context/store';
 const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
 
+
 export class ProductService {
+    
     public async fetchProducts(): Promise<Product[]> {
         const response = await axios.get(`${apiUrl}/product/all`);
         return response.data;

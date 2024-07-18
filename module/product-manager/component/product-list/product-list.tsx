@@ -6,15 +6,18 @@ import "./product-list.scss";
 //COMPONENTS
 import { Input } from '@/core/components/input';
 import { Modal } from '@/core/components/modal/modal';
-
+import { Loading } from '@/core/components/loading';
 //CLASS
 import { ProductService } from "../../service/productService"
 
 //LIBRARY
 import { ChevronDown, CircleCheckBig, SquarePen, Trash2 } from 'lucide-react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import classNames from 'classnames';
+
+//CONTEXT
+import { useGlobalContext } from '../../context/store';
 
 //TYPES
 import { Product } from "../../type/prduct-manager.type"
@@ -22,7 +25,7 @@ import { Product } from "../../type/prduct-manager.type"
 
 const ProductList = () => {
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    
     const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
     const [editableProductId, setEditableProductId] = useState<string | null>(null);
     const [editedProduct, setEditedProduct] = useState<Partial<Product>>({});
@@ -31,7 +34,8 @@ const ProductList = () => {
 
     const queryClient = useQueryClient();
     const productService = new ProductService
-
+    const {data:datas,  setIsModalOpen, isModalOpen,isSpinner,setIsSpinner} = useGlobalContext()
+ 
     const { data, error, isError, isLoading } = useQuery<Product[]>({
         queryKey: ['product'],
         queryFn: productService.fetchProducts
@@ -49,7 +53,9 @@ const ProductList = () => {
 
     const acceptModal = async () => {
         if (selectedProductId) {
-            await productService.deleteProductApi(selectedProductId);
+            setIsSpinner(true)
+            await productService.deleteProductApi(selectedProductId)
+           
             await queryClient.invalidateQueries(
                 {
                     queryKey: ['product'],
@@ -58,6 +64,7 @@ const ProductList = () => {
             )
             setSelectedProductId(null);
         }
+        setIsSpinner(false)    
         setIsModalOpen(false);
     };
 
@@ -80,11 +87,15 @@ const ProductList = () => {
             selection?.removeAllRanges();
             selection?.addRange(range);
         }, 0);
-    };
+    };   
 
-    const handleSaveEdit = async () => {
+    const handleSaveEdit = async () => {       
         if (editableProductId) {
-            await productService.updateProductApi({ ...editedProduct, _id: editableProductId });
+            setIsSpinner(true)
+            await productService.updateProductApi({ ...editedProduct, _id: editableProductId })
+            .then(res =>(
+                setIsSpinner(false)
+            ));
             await queryClient.invalidateQueries(
                 {
                     queryKey: ['product'],
@@ -94,6 +105,7 @@ const ProductList = () => {
             setEditableProductId(null);
             setEditedProduct({});
         }
+       
     };
 
     const handleSort = (field: keyof Product) => {
@@ -123,8 +135,8 @@ const ProductList = () => {
         });
     }, [data, sortField, searchTerm]);
 
-    if (isLoading) return <div>Loading...</div>;
-    if (isError) return <div>Error: {error.message}</div>;
+    if (isLoading) return <Loading message='yükleniyor' />;
+    if (isError) return <Loading  message={error.message} />;
 
     return (
         <div className='product-list-content'>
@@ -134,6 +146,8 @@ const ProductList = () => {
                     <p>Are you sure you want to delete this product?</p>
                 </Modal>
             )}
+            {isLoading  && <Loading message='lütfen bekleyin' />}          
+            {isSpinner && <Loading message='lütfen bekleyin' />}  
             <div className='product-list-content-top-bar'>
                 <div className='top-bar-left-child'>
                     <div className='top-bar-left-child-drop'>
