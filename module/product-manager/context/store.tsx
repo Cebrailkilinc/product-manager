@@ -13,6 +13,8 @@ interface ContextProps {
     setIsModalOpen: Dispatch<SetStateAction<boolean>>
     data: DataType[]
     setData: Dispatch<SetStateAction<DataType[]>>
+    switched:boolean, 
+    setSwitched:Dispatch<SetStateAction<boolean>>
 }
 
 const GlobalContext = createContext<ContextProps>({
@@ -21,7 +23,9 @@ const GlobalContext = createContext<ContextProps>({
     isSpinner: true,
     setIsSpinner:(): boolean => true,
     data: [{ firstName: "" }],
-    setData: (): DataType[] => []
+    setData: (): DataType[] => [],
+    switched:true, 
+    setSwitched:(): boolean => true
 })
 
 export const GlobalContextProvider = ({ children }: any) => {
@@ -29,10 +33,10 @@ export const GlobalContextProvider = ({ children }: any) => {
     const [data, setData] = useState<[] | DataType[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isSpinner, setIsSpinner] = useState(false);
-
+    const [switched, setSwitched] = useState(true);
 
     return (
-        <GlobalContext.Provider value={{ setIsModalOpen, isModalOpen, data, setData,isSpinner, setIsSpinner }}>
+        <GlobalContext.Provider value={{ setIsModalOpen, isModalOpen, data, setData,isSpinner, setIsSpinner,switched, setSwitched }}>
             {children}
         </GlobalContext.Provider>
     )

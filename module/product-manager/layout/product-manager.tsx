@@ -7,11 +7,14 @@ import ProductManagerNavbar from '@/packages/components/product-manager/product-
 import Analysis from '@/packages/components/product-manager/product-manager-analysis/analysis';
 import ProductList from '../component/product-list/product-list';
 import TopBar from '@/packages/components/product-manager/topbar/top-bar';
+import Switch from '@/core/components/switch/switch';
+import { useGlobalContext } from '../context/store';
 
 const ProductManagerLayout = () => {
 
   const [selectedMenu, setSelectedMenu] = useState('add-product');
-
+  const {switched,setSwitched} = useGlobalContext()
+ 
   const renderContent = () => {
     switch (selectedMenu) {
       case 'add-product':
@@ -38,6 +41,15 @@ const ProductManagerLayout = () => {
         </div>
         {renderContent()}
       </div>
+      <div className='switch-area' >
+        <Switch
+          isOn={switched}
+          handleToggle={() => setSwitched(!switched)}
+          colorOne="#EF476F"
+          colorTwo="#06D6A0"
+        />
+      </div>
+
 
     </div>
   )

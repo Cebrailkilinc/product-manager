@@ -9,7 +9,7 @@ export function ReactQueryProvider({ children }: React.PropsWithChildren) {
   const [client] = React.useState(new QueryClient({
     defaultOptions:{
         queries:{
-            refetchOnMount:false,
+            refetchOnMount:true,
             refetchOnWindowFocus:false
         }
     }

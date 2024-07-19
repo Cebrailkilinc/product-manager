@@ -33,7 +33,7 @@ const ProductList = () => {
 
     const queryClient = useQueryClient();
     const productService = new ProductService
-    const { data: datas, setIsModalOpen, isModalOpen, isSpinner, setIsSpinner } = useGlobalContext()
+    const { data: datas, setIsModalOpen, isModalOpen, isSpinner, setIsSpinner,switched } = useGlobalContext()
 
     const { data, error, isError, isLoading } = useQuery<Product[]>({
         queryKey: ['product'],
@@ -139,7 +139,7 @@ const ProductList = () => {
     if (isError) return <Loading message={error.message} />;
 
     return (
-        <div className='product-list-content'>
+        <div  className='product-list-content'>
             {isModalOpen && (
                 <Modal size="small" variant="success" onClose={closeModal} onAccept={acceptModal}>
                     <h2>Confirm Delete</h2>
